@@ -1,0 +1,98 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+            .plot.panel {
+                background-color: #ffffff;
+                border: 1px solid orange;
+                border-left: 0.4rem solid orange;
+                border-radius: 0.4rem;
+                margin-left: -0.4rem;
+                margin-right: -0.4rem;
+                padding: 1rem;
+            }
+        </style>
+        <script type="text/javascript">
+            function load_highcharts(d, s, id, src) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {
+                    return;
+                }
+                js = d.createElement(s);
+                js.id = id;
+                js.src = src;
+                fjs.parentNode.insertBefore(js, fjs);
+            };
+            
+            (function () {
+                load_highcharts(document, 'script', 'highcharts', "https://code.highcharts.com/highcharts.js");
+                load_highcharts(document, 'script', 'highcharts-exporting', "https://code.highcharts.com/highcharts.js");
+            })();
+        </script>
+        <script type="text/javascript" async defer>
+            function plot_%(uuid)s(data, height, width){
+                console.log(data["categories"]);
+                console.log(data["frequency"]);
+                
+                Highcharts.chart('plot-panel-%(uuid)s', {
+                    chart: {
+                        type: 'bar',
+                        width: width,
+                        height: height,
+                    },
+                    title: {
+                        text: 'Letter Histogram'
+                    },
+                    subtitle: {
+                        text: 'Source: ' + $("#progress-panel-%(uuid)s .job.id").text() + ":&lt;" + $("#progress-panel-%(uuid)s .job.name").text() + "&gt;"
+                    },
+                    xAxis: {
+                        categories: data["categories"],
+                        title: {
+                            text: null
+                        }
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Frecuency',
+                            align: 'high'
+                        },
+                        labels: {
+                            overflow: 'justify'
+                        }
+                    },
+                    plotOptions: {
+                        bar: {
+                            dataLabels: {
+                                enabled: true
+                            }
+                        }
+                    },
+                    legend: {
+                        layout: 'vertical',
+                        align: 'right',
+                        verticalAlign: 'top',
+                        x: -40,
+                        y: 80,
+                        floating: true,
+                        borderWidth: 1,
+                        backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+                        shadow: true
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    series: [{
+                        name: $("#progress-panel-%(uuid)s .job.id").text() + ":&lt;" + $("#progress-panel-%(uuid)s .job.name").text() + "&gt;",
+                        data: data["frequency"],
+                    }]
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <div id="plot-panel-%(uuid)s" class="plot panel">
+        </div>
+    </body>
+</html>

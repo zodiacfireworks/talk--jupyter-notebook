@@ -1,0 +1,153 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Test</title>
+        <link type="styleshet/css" src="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+            .spark.panel {
+                background-color: #fafafa;
+                border: 1px solid orange;
+                border-left: 0.4rem solid orange;
+                border-radius: 0.4rem;
+                margin-left: -0.4rem;
+                margin-right: -0.4rem;
+                padding: 1rem;
+            }
+
+            .spark .title {
+                margin: 0 0 2rem 0;
+                font-size: 1.5rem;
+                line-height: 1.5rem;
+            }
+
+            .spark .subtitle {
+                margin: 0 0 2rem 0;
+                font-size: 1.4rem;
+                line-height: 1.4rem;
+            }
+
+            .spark .panel .title {
+                font-weight: bold;
+                margin: -1rem -1rem 1rem;
+                padding: 1rem;
+                font-size: 1.35rem;
+                line-height: 1.35rem;
+                border-bottom: 1px solid #dedede;
+            }
+
+            .spark .panel .title:after {
+                content: ":";
+            }
+            .spark dl.app.panel {
+                padding: 1rem;
+                font-size: 1.25rem;
+                line-height: 1.25rem;
+                margin: 0 0 1rem 0;
+            }
+
+            .spark dl.progress.panel {
+                padding: 1rem;
+                font-size: 1.25rem;
+                line-height: 1.25rem;
+                height: auto;
+                background-color: #ffffff;
+                -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+                box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+                margin: 0;
+            }
+
+            .spark dl.progress.panel .bar  {
+                position: relative;
+                height: 2rem;
+                display: block;
+                width: 100%%;
+                background-color: #dedede;
+                overflow: hidden;
+                border-radius: 0.5rem;
+            }
+
+            .spark dl.progress.panel .bar .fill {
+                background-color: orange;
+                height: 2rem;
+                line-height: 2rem;
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+
+            .spark dl.progress.panel .bar .text {
+                height: 2rem;
+                line-height: 2rem;
+                padding: 0 0.5rem;
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+
+            .spark dl.panel dt:after {
+                content: ":";
+            }
+
+            .spark dl.panel dd {
+                padding-left: 1.5rem;
+            }
+
+            .spark dl.panel dd + dt {
+                margin-top: 0.5rem;
+            }
+        </style>
+        <script type="text/javascript">
+            function getApplicationData_%(uuid)s(data){
+                $('#app-panel-%(uuid)s')
+                    .append($('<dt></dt>').text("Application ID"))
+                    .append($('<dd id="application-id-%(uuid)s"></dd>').text(data["id"]))
+                    .append($('<dt></dt>').text("Application Name"))
+                    .append($('<dd id="application-name-%(uuid)s"></dd>').text(data["name"]));
+            }
+
+            function refreshJobProgress_%(uuid)s(data) {
+                progress = parseFloat(data["numCompletedTasks"])/parseFloat(data["numTasks"]);
+                progress = Number(Math.round(progress+'e2')).toFixed(2);
+
+                $('#progress-panel-%(uuid)s .text').text(progress + "%%");
+                $('#progress-panel-%(uuid)s .fill').css('width', progress + "%%");
+
+                $('#progress-panel-%(uuid)s .job.id').text(data["jobId"]);
+                $('#progress-panel-%(uuid)s .job.name').text(data["name"]);
+                $('#progress-panel-%(uuid)s .total.task').text(data["numTasks"]);
+                $('#progress-panel-%(uuid)s .completed.task').text(data["numCompletedTasks"]);                    
+            }
+        </script>
+    </head>
+    <body>
+        <div class="spark panel">
+            <h1 class="title" id="%(uuid)s">
+                <i class="fa fa-fw fa-star-o"></i> Spark Process Monitor
+            </h1>
+            <h2 class="subtitle">
+                Process UUID: "%(uuid)s"
+            </h2>
+            <dl class="app panel" id="app-panel-%(uuid)s">
+                <dt class="title">Application Detail</dt>
+            </dl>
+            <dl class="progress panel" id="progress-panel-%(uuid)s">
+                <dt class="title">Progress Detail</dt>
+                <dt>Job ID</dt>
+                <dd class="job id"></dd>
+                <dt>Job Name</dt>
+                <dd class="job name"></dd>
+                <dt>Total Tasks</dt>
+                <dd class="total task"></dd>
+                <dt>Completed Tasks</dt>
+                <dd class="completed task"></dd>
+                <dt>Progress</dt>
+                <dd>
+                    <div class="bar">
+                        <div class="fill"></div>
+                        <div class="text"></div>
+                    </div>
+                </dd>
+            </dl>
+        </div>
+    </body>
+</html>

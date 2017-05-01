@@ -10,7 +10,7 @@
 Míralos en
 
 * **Github**: [Parte I](https://goo.gl/Da35OO) y [Parte II](https://goo.gl/XbmpwQ)
-* **nbviewer**: [Parte I](https://goo.gl/Da35OO) y [Parte II](https://goo.gl/XbmpwQ)
+* **nbviewer**: [Parte I](https://goo.gl/dvXPmk) y [Parte II](https://goo.gl/wgAkhB)
 
 ## How to use
 
